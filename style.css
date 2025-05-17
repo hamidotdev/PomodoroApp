@@ -6,7 +6,9 @@
 }
 
 body {
-    background-color: rgb(189, 144, 206);
+    background: url('./bcg.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .container {
@@ -56,6 +58,7 @@ body {
     background-color: var(--clr);
     color: #fff;
     cursor: pointer;
+    transition: transform 400ms ease-in-out;
 }
 
 .buttons button:hover {
