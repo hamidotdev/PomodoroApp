@@ -6,15 +6,28 @@ const pauseBtn = document.querySelector('.pauseBtn')
 const resetBtn = document.querySelector('.resetBtn')
 
 // Making Variaables
-const WORK_TIME = 1 * 60
-const BREAK_TIME = 0.5 * 60
+const WORK_TIME = 1 * 6
+const BREAK_TIME = 0.5 * 4
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
+let totalCount = 0
 
 
 // Function to update title
-const 
+const updateTitle = (message) => {
+    title.textContent = message
+}
+
+// Function to save Poodoro Count to local storage
+const saveLogCounts = () => {
+    let counts = JSON.parse(localStorage.getItem('pomoCounts'))
+    console.log(counts);
+    counts !== null ? counts++ : counts = 1;
+    localStorage.setItem("pomoCounts", JSON.stringify(counts))
+    console.log(counts);
+}
+
 // Function to countDown
 const counter = (time) => {
     return () => {
@@ -25,6 +38,15 @@ const counter = (time) => {
             if (!oneRoundCompleted) {
                 timerID = startTimer(BREAK_TIME)
                 oneRoundCompleted = true
+                updateTitle("It's Break Time!")
+            } else {
+                updateTitle("Completed 1 Round of Pomodoro Technique!")
+                setTimeout( ()=> updateTitle("Start Timer Again!"), 5000)
+                oneRoundCompleted = false
+                totalCount++
+                console.log(totalCount);
+                saveLogCounts()
+                
             }
         }
     }
@@ -46,5 +68,6 @@ const stopTimer = () => {
 
 // Adding event listening to start button
 startBtn.addEventListener('click', ()=>{
-    timerID = startTimer(WORK_TIME)
+    timerID = startTimer(WORK_TIME);
+    updateTitle(`It's Work Time`);
 })
