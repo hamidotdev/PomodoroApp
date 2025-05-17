@@ -7,12 +7,6 @@
 
 body {
     background-color: rgb(189, 144, 206);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
 }
 
 .container {
@@ -28,10 +22,10 @@ body {
 .timer {
     font-size: 50px;
     font-weight: 700;
-    padding: 30px;
     margin-bottom: 30px;
-    background-color: black;
-    box-shadow: 0px 0px 30px rgb(0, 0, 0.9), 0px 0px 20px rgb(0, 0, 0.9), 0px 0px 10px rgb(0, 0, 0.9);
+    letter-spacing: 4.5px;
+    background-color: #2f2f2f;
+    box-shadow: 0px 0px 30px rgb(0, 0, 0.9), 0px 0px 20px rgb(0, 0, 0.9), 0px 0px 10px rgb(0, 0, 0, 0.5);
     border-radius: 50%;
     height: 250px;
     aspect-ratio: 1/1;
@@ -39,19 +33,31 @@ body {
     place-items: center;
 }
 
+.title {
+    font-size: 22px;
+    margin: 10px 0 30px 0;
+}
+
 .buttons {
-    width: 500px;
+    width: 100%;
     max-width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 30px;
+    margin: 30px 0;
 }
 
 .buttons button {
-    padding: 15px;
+    padding: 16px;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
     border: none;
-    background-color: ;
+    background-color: var(--clr);
+    color: #fff;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    transform: scale(1.1);
 }
