@@ -5,19 +5,46 @@ const resumeBtn = document.querySelector('.resumeBtn')
 const pauseBtn = document.querySelector('.pauseBtn')
 const resetBtn = document.querySelector('.resetBtn')
 
-const WORK_TIME = 25 * 60
-const BREAK_TIME = 5 * 60
+// Making Variaables
+const WORK_TIME = 1 * 60
+const BREAK_TIME = 0.5 * 60
 
+let timerID = null
+let oneRoundCompleted = false; // One Round = Work Time + Break Time
+
+
+// Function to update title
+const 
 // Function to countDown
 const counter = (time) => {
-    timer.textContent = time
+    return () => {
+        timer.textContent = time
+        time --
+        if(time < 0) {
+            stopTimer()
+            if (!oneRoundCompleted) {
+                timerID = startTimer(BREAK_TIME)
+                oneRoundCompleted = true
+            }
+        }
+    }
 }
+
 //Arrow Function to start timer
-const startTimer = (startTimer) => {
-    setInterval(counter(startTimer), 1000)
+const startTimer = (startTime) => {
+    if(timerID !== null) {
+     stopTimer()
+    }
+   return setInterval(counter(startTime), 1000);
+}
+
+// Arrow Function to stop timer
+const stopTimer = () => {
+    clearInterval(timerID); 
+    timerID = null
 }
 
 // Adding event listening to start button
 startBtn.addEventListener('click', ()=>{
-    startTimer(WORK_TIME)
+    timerID = startTimer(WORK_TIME)
 })
