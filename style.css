@@ -95,4 +95,25 @@ body {
         transform: translateY(0);
         opacity: 1;
     }
-} 
+}
+
+@media screen and (max-width: 520px) {
+    .container {
+        margin-block: 40px;
+    }
+
+    .timer {
+        height: 220px;
+        font-size: 40px;
+    }
+
+    .buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .buttons button {
+        width: 40%;
+        margin: 10px;
+    }
+}

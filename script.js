@@ -8,12 +8,13 @@ const count = document.querySelector('.count')
 const pomoCountsDisplay = document.querySelector('.pomoCountsDisplay')
 
 // Making Variaables
-const WORK_TIME = 25 * 60
+const WORK_TIME = 2 * 6
 const BREAK_TIME = 1 * 60
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
 let totalCount = 0
+let pause = false
 
 
 // Function to update title
@@ -33,9 +34,9 @@ const saveLogCounts = () => {
 // Function to countDown
 const counter = (time) => {
     return () => {
-        let mins = Math.floor(time/60)
-        let secs = time % 60
-        timer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+        let mins = Math.floor(time/60).toString().padStart(2, '0')
+        let secs = (time % 60).toString().padStart(2, '0')
+        timer.textContent = `${mins}:${secs}`
         time --
         if(time < 0) {
             stopTimer()
@@ -56,6 +57,13 @@ const counter = (time) => {
     }
 }
 
+
+// Function to get time in seconds
+const getTimeInSecs = (timeString) =>  {
+    const [minutes, seconds] = timeString.split(":")
+    return parseInt(minutes * 60) + parseInt(seconds)
+}
+
 //Arrow Function to start timer
 const startTimer = (startTime) => {
     if(timerID !== null) {
@@ -68,24 +76,37 @@ const startTimer = (startTime) => {
 const stopTimer = () => {
     clearInterval(timerID);
     timerID = null
-    
 }
 
 // Adding event listening to start button
 startBtn.addEventListener('click', ()=>{
     timerID = startTimer(WORK_TIME);
-    updateTitle(`It's Work Time`);
+    updateTitle(`It's Work Time!!`);
 })
 
 // Adding Event Listener to reset button
 resetBtn.addEventListener('click', () => {
     stopTimer();
     timer.textContent = "25:00"
+    localStorage.clear()
 })
 
 // Adding Event Listener to pause button
 pauseBtn.addEventListener('click', () => {
     stopTimer();
+    pause = true
+    updateTitle(`Timer Paused!`)
+})
+
+// Adding Event Listener to resume button
+resumeBtn.addEventListener('click', () => {
+    if (pause) {
+        const currentTime = getTimeInSecs(timer.textContent)
+        timerID = startTimer(currentTime)
+        pause = false;
+        (!oneRoundCompleted) ? updateTitle("It's Work Time!!") : updateTitle("It's Break Time")
+        console.log(oneRoundCompleted);
+    }
 })
 
 
