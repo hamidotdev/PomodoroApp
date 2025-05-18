@@ -8,8 +8,8 @@ const count = document.querySelector('.count')
 const pomoCountsDisplay = document.querySelector('.pomoCountsDisplay')
 
 // Making Variaables
-const WORK_TIME = 1 * 6
-const BREAK_TIME = 0.5 * 6
+const WORK_TIME = 25 * 60
+const BREAK_TIME = 1 * 60
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
@@ -33,7 +33,9 @@ const saveLogCounts = () => {
 // Function to countDown
 const counter = (time) => {
     return () => {
-        timer.textContent = time
+        let mins = Math.floor(time/60)
+        let secs = time % 60
+        timer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
         time --
         if(time < 0) {
             stopTimer()
@@ -64,8 +66,9 @@ const startTimer = (startTime) => {
 
 // Arrow Function to stop timer
 const stopTimer = () => {
-    clearInterval(timerID); 
+    clearInterval(timerID);
     timerID = null
+    
 }
 
 // Adding event listening to start button
@@ -73,6 +76,18 @@ startBtn.addEventListener('click', ()=>{
     timerID = startTimer(WORK_TIME);
     updateTitle(`It's Work Time`);
 })
+
+// Adding Event Listener to reset button
+resetBtn.addEventListener('click', () => {
+    stopTimer();
+    timer.textContent = "25:00"
+})
+
+// Adding Event Listener to pause button
+pauseBtn.addEventListener('click', () => {
+    stopTimer();
+})
+
 
 // Function to show completed pomodoros to screen from local storage
 const showPomoCounts = () => {
@@ -86,4 +101,3 @@ const showPomoCounts = () => {
 }
 
 showPomoCounts()
-localStorage.clear()
