@@ -9,7 +9,7 @@ const pomoCountsDisplay = document.querySelector('.pomoCountsDisplay')
 
 // Making Variaables
 const WORK_TIME = 1 * 6
-const BREAK_TIME = 1 * 3
+const BREAK_TIME = 1 * 30
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
@@ -21,6 +21,9 @@ let pause = false
 // Function to update title
 const updateTitle = (message) => {
     title.textContent = message
+    if (message === "Completed 1 Round of Pomodoro Technique!") {
+        startPomodoro = false
+    }
 }
 
 // Function to save Poodoro Count to local storage
