@@ -8,12 +8,13 @@ const count = document.querySelector('.count')
 const pomoCountsDisplay = document.querySelector('.pomoCountsDisplay')
 
 // Making Variaables
-const WORK_TIME = 2 * 6
-const BREAK_TIME = 1 * 60
+const WORK_TIME = 1 * 6
+const BREAK_TIME = 1 * 3
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
 let totalCount = 0
+let startPomodoro = false
 let pause = false
 
 
@@ -82,6 +83,7 @@ const stopTimer = () => {
 startBtn.addEventListener('click', ()=>{
     timerID = startTimer(WORK_TIME);
     updateTitle(`It's Work Time!!`);
+    startPomodoro = true
 })
 
 // Adding Event Listener to reset button
@@ -89,13 +91,17 @@ resetBtn.addEventListener('click', () => {
     stopTimer();
     timer.textContent = "25:00"
     localStorage.clear()
+    updateShowPomodoro()
 })
 
 // Adding Event Listener to pause button
 pauseBtn.addEventListener('click', () => {
-    stopTimer();
-    pause = true
-    updateTitle(`Timer Paused!`)
+    if (startPomodoro) {
+        stopTimer();
+        pause = true
+        updateTitle(`Timer Paused!`)
+        startPomodoro = false
+    }
 })
 
 // Adding Event Listener to resume button
@@ -105,10 +111,9 @@ resumeBtn.addEventListener('click', () => {
         timerID = startTimer(currentTime)
         pause = false;
         (!oneRoundCompleted) ? updateTitle("It's Work Time!!") : updateTitle("It's Break Time")
-        console.log(oneRoundCompleted);
+        startPomodoro = true
     }
 })
-
 
 // Function to show completed pomodoros to screen from local storage
 const showPomoCounts = () => {
@@ -119,6 +124,11 @@ const showPomoCounts = () => {
         pomoCountsDisplay.style.display = 'flex'
     }
     count.textContent = counts;
+}
+
+// Function to Updates the Show Pomo Counts
+const updateShowPomodoro = () => {
+    pomoCountsDisplay.style.display = 'none'
 }
 
 showPomoCounts()
