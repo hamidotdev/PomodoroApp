@@ -86,3 +86,4 @@ const showPomoCounts = () => {
 }
 
 showPomoCounts()
+localStorage.clear()

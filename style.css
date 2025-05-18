@@ -47,6 +47,7 @@ body {
     align-items: center;
     justify-content: space-between;
     margin: 30px 0;
+    animation: swipe-up 2s ease-in;
 }
 
 .buttons button {
@@ -58,7 +59,7 @@ body {
     background-color: var(--clr);
     color: #fff;
     cursor: pointer;
-    transition: transform 400ms ease-in-out;
+    transition: transform 300ms ease-in-out;
 }
 
 .buttons button:hover {
@@ -86,11 +87,11 @@ body {
 }
 
 @keyframes swipe-up {
-    0%{
+    0% {
         transform: translateY(100%);
         opacity: 0;
     }
-    100%{
+    100% {
         transform: translateY(0);
         opacity: 1;
     }
