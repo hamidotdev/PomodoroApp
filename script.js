@@ -8,8 +8,8 @@ const count = document.querySelector('.count')
 const pomoCountsDisplay = document.querySelector('.pomoCountsDisplay')
 
 // Making Variaables
-const WORK_TIME = 1 * 6
-const BREAK_TIME = 1 * 30
+const WORK_TIME = 25 * 60
+const BREAK_TIME = 5 * 60
 
 let timerID = null
 let oneRoundCompleted = false; // One Round = Work Time + Break Time
