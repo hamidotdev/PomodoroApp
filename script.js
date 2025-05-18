@@ -95,6 +95,8 @@ resetBtn.addEventListener('click', () => {
     timer.textContent = "25:00"
     localStorage.clear()
     updateShowPomodoro()
+    startPomodoro = false
+    updateTitle('Click the START button!')
 })
 
 // Adding Event Listener to pause button
